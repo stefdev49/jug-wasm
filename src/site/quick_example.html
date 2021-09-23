@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+  <script>
+    var Module = {
+      onRuntimeInitialized: function() {
+        console.log('lerp result: ' + Module.lerp(1, 2, 0.5));
+
+        // on a _malloc et _free, pas besoin de se redéfinir des fonctions ...
+        var buffer = Module._malloc(200);
+        Module.passThrough(buffer);
+        Module._free(buffer);
+      }
+    };
+  </script>
+  <script src="../../out/quick_example.js"></script>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <title>démonstration WebAssembly</title>
+  <meta name="description" content="Page d'index des démos WASM">
+  <meta name="author" content="stef.dev.49@free.fr">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="src/site/css/main.css">
+</head>
+
+<body>
+
+<h2>Démonstration utilisation WebAssembly</h2>
+
+<p>Etapes de mise en place de wasm</p>
+<button class="collapsible">Au début</button>
+<div class="content">
+  <p>Mise en place : code javascript de traitement d'image.</p>
+  <a href="src/site/etape0.html" target="_blank">Test</a>
+</div>
+
+<button class="collapsible">Hello world</button>
+<div class="content">
+  <p>Etape 1 : Hello world wasm
+    <a href="out/hello.html" target="_blank">Hello!</a>
+  </p>
+  <p>Hello world wasm par une fonction
+    <a href="out/hello_function.html" target="_blank">Hello la fonction!</a>
+  </p>
+</div>
+
+<button class="collapsible">Mise en place squelette</button>
+<div class="content">
+  <p>Etape 2 : On met en place les appels de fonctions dans le code javascript.</p>
+  <a href="src/site/etape2.html" target="_blank">Test du squelette</a>
+</div>
+
+<button class="collapsible">Le debug</button>
+<div class="content">
+  <p>Etape 3 : Aperçu du debug </p>
+  <a href="src/site/debug.html" target="_blank">Test avec du debug</a>
+</div>
+
+<button class="collapsible">Version finale</button>
+<div class="content">
+  <p>Etape 4 : On implémente l'algorithme en C.</p>
+  <a href="src/site/final.html" target="_blank">Test version finalisée</a>
+</div>
+
+<button class="collapsible">Optimisation</button>
+<div class="content">
+  <p>Etape 4 : Il y a beaucoup de temps passé dans la partie copie du javascript. Si on y faisait quelque chose ?</p>
+  <a href="src/site/final-improved.html" target="_blank">Test version optimisée</a>
+</div>
+
+<button class="collapsible">Utilisation d'une librairie</button>
+<div class="content">
+  <p>Etape 5 : Utilisation d'une librairie </p>
+  <a href="src/site/withlib.html" target="_blank">Test version avec une librairie</a>
+</div>
+
+<button class="collapsible">Utilisation de bind</button>
+<div class="content">
+  <p>Etape 6 : Avec bind on peut utiliser du code C++ comme une fonction javascript normale </p>
+  <a href="src/site/quick_example.html" target="_blank">Test 'quick example'</a>
+</div>
+
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    } 
+  });
+}
+</script>
+
+</body>
+</html>

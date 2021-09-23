@@ -1,0 +1,24 @@
+<!doctype html>
+
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Etape initiale</title>
+  <meta name="description" content="Page de test initiale">
+  <meta name="author" content="stef.dev.49@free.fr">
+  <link rel="stylesheet" href="css/main.css?v=1.0">
+</head>
+
+<body onload="bonjour();">
+  <div>
+    <h2>Page de test étape initiale</h2>
+    <button onclick="loadImage('img/affiche.jpg').then((data) => imgData = data);">Image</button>
+    <canvas id="canvas"></canvas>
+    <button onclick="transformImage(imgData);">Transforme</button>
+  </div>
+  <script src="js/etape0.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>

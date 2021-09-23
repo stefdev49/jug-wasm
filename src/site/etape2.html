@@ -1,0 +1,34 @@
+<!doctype html>
+
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Page étape2 : insertion code wasm</title>
+  <meta name="description" content="Page étape2 : insertion code wasm">
+  <meta name="author" content="stef.dev.49@free.fr">
+  <link rel="stylesheet" href="css/main.css?v=1.0">
+</head>
+
+<body>
+  <div>
+    <h2>Page étape2 : insertion code wasm</h2>
+    <canvas id="canvas"></canvas>
+  </div>
+  <script src="../../out/etape2.js"></script>
+  <script>
+    Module.onRuntimeInitialized = async _ => {
+      const api = {
+        // nom de la fonction, type du retour, tableau des types des paramètres
+        // https://emscripten.org/docs/api_reference/preamble.js.html#calling-compiled-c-functions-from-javascript
+        // number, string, boolean et array (Uint8Array ou Int8Array)
+        processData: Module.cwrap('processData', 'number', ['number', 'number', 'number']),
+        allocBuffer: Module.cwrap('allocBuffer', 'number', ['number', 'number']),
+        freeBuffer: Module.cwrap('freeBuffer', '', ['number'])
+      };
+      console.log(api.processData(null, 1024, 768));
+    };
+  </script>
+</body>
+
+</html>

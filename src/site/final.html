@@ -1,0 +1,62 @@
+<!doctype html>
+
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Page de test final</title>
+  <meta name="description" content="Page de test final">
+  <meta name="author" content="stef.dev.49@free.fr">
+  <link rel="stylesheet" href="css/main.css?v=1.0">
+</head>
+
+<body onload="bonjour();">
+  <div>
+    <h2>Page de test final</h2>
+    <button onclick="loadImage('img/affiche.jpg').then((data) => imgData = data);">Image</button>
+    <canvas id="canvas"></canvas>
+    <button onclick="transformImage(imgData);">Transforme</button>
+  </div>
+  <script src="../../out/final.js"></script>
+  <script>
+    var capi = {};
+
+    Module.onRuntimeInitialized = async _ => {
+      capi = {
+        // nom de la fonction, type du retour, tableau des types des paramètres
+        // https://emscripten.org/docs/api_reference/preamble.js.html#calling-compiled-c-functions-from-javascript
+        // number, string, boolean et array (Uint8Array ou Int8Array)
+        processData: Module.cwrap('processData', 'number', ['number', 'number', 'number']),
+        allocBuffer: Module.cwrap('allocBuffer', 'number', ['number', 'number']),
+        freeBuffer: Module.cwrap('freeBuffer', '', ['number'])
+      }
+    }
+
+    function processData(data, width, heigth) {
+      // alloue la mémoire
+      var buffer = capi.allocBuffer(width, heigth);
+
+      // copie les données
+      Module.HEAPU8.set(data, buffer);
+
+      // traite les données
+      capi.processData(buffer, width, heigth);
+
+      // recopie le résultat
+      const len = buffer + width * heigth * 4;
+      var result = Module.HEAPU8.subarray(buffer, len);
+      // https://developer.mozilla.org/fr/docs/Web/API/ImageData 
+      for(var i=0; i<len; i+=4) {
+        data[i]=result[i];
+        data[i+1]=result[i+1];
+        data[i+2]=result[i+2];
+      }
+
+      // libère la mémoire
+      capi.freeBuffer(buffer);
+    }
+  </script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>

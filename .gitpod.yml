@@ -1,0 +1,34 @@
+
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - name: compilation wasm
+    before: |
+      mkdir -p tools out
+      pushd .
+      cd tools
+      git clone https://github.com/emscripten-core/emsdk.git
+      cd emsdk
+      ./emsdk install latest
+      ./emsdk activate latest
+      popd
+      ./wasmer.sh
+      echo "source $(GITPOD_REPO_ROOT)/tools/emsdk/emsdk_env.sh" >~/.bashrc
+    init: |
+      echo "Prêt à compiler"
+  - name: serveur html
+    before: npm install
+    command: npm run start
+
+ports:
+  - port: 8080
+    onOpen: open-browser
+
+# extensions vs-code : on récupère l'identifiant dans la rubrique 'more info' du plugin sur le 'market place'
+# ou on utilise simplement le bouton de réglage
+vscode:
+  extensions:
+    - editorconfig.editorconfig
+    - eamodio.gitlens
+    - ms-vscode.makefile-tools
